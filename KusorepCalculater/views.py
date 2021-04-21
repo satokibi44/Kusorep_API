@@ -7,7 +7,7 @@ def kusorep_score_viewset(request):
     if(request.method == "GET"):
         msg = request.GET["msg"]
         predictTaskExecutor = PredictTaskExecutor()
-        label = predictTaskExecutor.main(sentence)
+        label = predictTaskExecutor.main(msg)
         kusoripu_score = label[1]
         return HttpResponse("Hello, Nginx."+msg)
     else:

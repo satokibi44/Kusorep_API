@@ -1,0 +1,2 @@
+Django
+mecab-python3
