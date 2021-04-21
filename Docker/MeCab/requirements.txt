@@ -1,2 +1,3 @@
 Django
-mecab-python3
+mecab-python3==0.996.2
+djangorestframework

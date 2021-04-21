@@ -10,8 +10,9 @@ class PredictTaskExecutor:
 
     def predict_task_executor(self, net, sentence):
         net.eval()
+        #tokenizer = BertJapaneseTokenizer.from_pretrained('bert-base-japanese-whole-word-masking')
         tokenizer = BertJapaneseTokenizer.from_pretrained(
-            'bert-base-japanese-whole-word-masking')
+            './KusorepCalculater/Bert/Data/tokenizer', mecab_kwargs={"mecab_option": "-d ~/local/lib/mecab/dic/mecab-ipadic-neologd"})
 
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -34,7 +35,7 @@ class PredictTaskExecutor:
 
         model = Bert()
 
-        model_path = "/Users/fumiya/project/machine_learning/kusoripu_bot/Kusorep_API/KusorepCalculater/Bert/Data/best_epoche7"
+        model_path = "KusorepCalculater/Bert/Data/best_epoche7"
 
         model.load_state_dict(torch.load(
             model_path, map_location=torch.device('cpu')))

@@ -1,38 +1,31 @@
-FROM ubuntu:18.04
+FROM python:3.7.9
 
 # basic libs
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install -y wget build-essential gcc zlib1g-dev
+RUN apt-get install -y wget build-essential gcc zlib1g-dev git
 
-# latest openssl for python
-WORKDIR /root/
-RUN wget https://www.openssl.org/source/openssl-1.1.1d.tar.gz \
-    && tar zxf openssl-1.1.1d.tar.gz \
-    && cd openssl-1.1.1d \
-    && ./config \
-    && make \
-    && make install
-
-# python
-WORKDIR /root/
-RUN wget https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz \
-    && tar zxf Python-3.9.0.tgz \
-    && cd Python-3.9.0 \
-    && ./configure \
-    && make altinstall
 ENV PYTHONIOENCODING "utf-8"
 
 WORKDIR /usr/local/bin/
-RUN ln -s python3.9 python
-RUN ln -s pip3.9 pip
-RUN pip install --upgrade pip
-
 # mecab
 RUN apt-get install -y mecab libmecab-dev mecab-ipadic mecab-ipadic-utf8
 
+RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
+WORKDIR /usr/local/bin/mecab-ipadic-neologd/
+RUN apt-get install -y wget curl file sudo
+RUN ./bin/install-mecab-ipadic-neologd -n -u -y --prefix $HOME/local/lib/mecab/dic/mecab-ipadic-neologd
+
 # python app settings
-ADD requirements.txt ./requirements.txt
-RUN pip install -r requirements.txt
+WORKDIR /usr/local/bin/
+COPY ./Kusorep_API/Docker/MeCab/requirements.txt ./requirements.txt
+RUN yes | pip install -r requirements.txt
+RUN pip install torch==1.7.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+RUN pip install sentencepiece==0.1.95
+RUN pip install transformers==2.9.0
+RUN pip install ipadic
 
 WORKDIR /
+COPY ./Kusorep_API ./Kusorep_API
+
+WORKDIR /Kusorep_API

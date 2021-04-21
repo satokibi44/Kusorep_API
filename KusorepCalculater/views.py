@@ -9,7 +9,7 @@ def kusorep_score_viewset(request):
         predictTaskExecutor = PredictTaskExecutor()
         label = predictTaskExecutor.main(msg)
         kusoripu_score = label[1]
-        return HttpResponse("Hello, Nginx."+msg)
+        return HttpResponse("Hello, Nginx."+kusoripu_score)
     else:
         return HttpResponse("Hello, Nginx.")
 
