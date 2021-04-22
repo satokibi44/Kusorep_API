@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  nginx:
+      image: nginx:1.13
+      container_name: nginx
+      ports:
+        - "8000:8000"
+      volumes:
+        - ../nginx/conf:/etc/nginx/conf.d
+        - ../nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      depends_on:
+        - python
+
+  python:
+      image: mecab/echo:latest
+      container_name: python
+      command: uwsgi --socket :8001 --module Kusorep_API.wsgi --py-autoreload 1 --logto /tmp/mylog.log
+      expose:
+        - "8001"
