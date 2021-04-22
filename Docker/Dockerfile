@@ -18,7 +18,8 @@ RUN ln -s /etc/mecabrc /usr/local/etc/mecabrc
 
 # python app settings
 WORKDIR /usr/local/bin/
-COPY ./Kusorep_API/Docker/MeCab/requirements.txt ./requirements.txt
+COPY ./Kusorep_API/Docker/requirements.txt ./requirements.txt
+RUN pip install torch==1.7.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 RUN yes | pip install -r requirements.txt
 
 WORKDIR /
