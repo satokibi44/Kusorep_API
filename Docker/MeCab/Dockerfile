@@ -24,6 +24,7 @@ RUN yes | pip install -r requirements.txt
 RUN pip install torch==1.7.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip install sentencepiece==0.1.95
 RUN pip install transformers==2.9.0
+RUN pip install uwsgi
 
 WORKDIR /
 COPY ./Kusorep_API ./Kusorep_API

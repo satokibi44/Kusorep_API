@@ -12,7 +12,7 @@ class PredictTaskExecutor:
         net.eval()
         #tokenizer = BertJapaneseTokenizer.from_pretrained('bert-base-japanese-whole-word-masking')
         tokenizer = BertJapaneseTokenizer.from_pretrained(
-            './KusorepCalculater/Bert/Data/tokenizer', mecab_kwargs={"mecab_option": "-d /root/local/lib/mecab/dic/mecab-ipadic-neolog"})
+            './KusorepCalculater/Bert/Data/tokenizer', mecab_kwargs={"mecab_option": "-d /root/local/lib/mecab/dic/mecab-ipadic-neologd"})
 
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
