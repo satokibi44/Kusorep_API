@@ -3,7 +3,7 @@ FROM python:3.7.9
 # basic libs
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install -y wget build-essential gcc zlib1g-dev git
+RUN apt-get install -y wget build-essential gcc zlib1g-dev git vim
 
 ENV PYTHONIOENCODING "utf-8"
 
@@ -15,6 +15,7 @@ RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
 WORKDIR /usr/local/bin/mecab-ipadic-neologd/
 RUN apt-get install -y wget curl file sudo
 RUN ./bin/install-mecab-ipadic-neologd -n -u -y --prefix $HOME/local/lib/mecab/dic/mecab-ipadic-neologd
+RUN ln -s /etc/mecabrc /usr/local/etc/mecabrc
 
 # python app settings
 WORKDIR /usr/local/bin/
@@ -23,7 +24,6 @@ RUN yes | pip install -r requirements.txt
 RUN pip install torch==1.7.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip install sentencepiece==0.1.95
 RUN pip install transformers==2.9.0
-RUN pip install ipadic
 
 WORKDIR /
 COPY ./Kusorep_API ./Kusorep_API
