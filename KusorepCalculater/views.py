@@ -9,7 +9,13 @@ def kusorep_score_viewset(request):
         predictTaskExecutor = PredictTaskExecutor()
         label = predictTaskExecutor.main(msg)
         kusoripu_score = label[1]
-        return HttpResponse("Hello, Nginx."+str(kusoripu_score))
-    else:
-        return HttpResponse("Hello, Nginx.")
+
+        return JsonResponse({
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': {'sentence': msg, 'kusoripu_score': kusoripu_score}
+        })
 
