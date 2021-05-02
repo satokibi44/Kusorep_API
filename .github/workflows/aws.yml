@@ -95,7 +95,7 @@ jobs:
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: kusorep-cluster-nginx
+        task-definition: ${{ steps.django-task-def.outputs.task-definition }}
+        service: kusorep-service
         cluster: kusorep-cluster
         wait-for-service-stability: true
