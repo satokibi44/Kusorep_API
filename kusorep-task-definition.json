@@ -1,0 +1,64 @@
+{
+    "family": "kusorep-task-definition2",
+    "taskRoleArn": "arn:aws:iam::719378226820:role/ECSTaskRole",
+    "executionRoleArn": "arn:aws:iam::719378226820:role/ECSTaskRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "nginxbug",
+            "image": "719378226820.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/nginx",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "dependsOn": [
+                {
+                    "containerName": "Django",
+                    "condition": "START"
+                }
+            ],
+            "privileged": false,
+            "readonlyRootFilesystem": false,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "ecs-hands-on",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "nginx"
+                }
+            }
+        },
+        {
+            "name": "Django",
+            "image": "719378226820.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/django:latest",
+            "command": [
+                "/bin/sh -c \"uwsgi --socket :8001 --module Kusorep_API.wsgi\""
+            ],
+            "entryPoint": [
+                "sh",
+                "-c"
+            ],
+            "essential": false,
+            "privileged": false,
+            "readonlyRootFilesystem": false,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "ecs-hands-on",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-datetime-format": "%Y-%m-%d %H:%M:%S",
+                    "awslogs-stream-prefix": "laravel"
+                }
+            }
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "1024"
+}
