@@ -35,7 +35,7 @@ class PredictTaskExecutor:
 
         model = Bert()
 
-        model_path = "KusorepCalculater/Bert/Data/best_epoche7"
+        model_path = "./code/Kusorep_API/KusorepCalculater/Bert/Data/best_epoche7"
 
         model.load_state_dict(torch.load(
             model_path, map_location=torch.device('cpu')))
