@@ -26,3 +26,5 @@ WORKDIR /
 COPY ./Kusorep_API ./Kusorep_API
 
 WORKDIR /Kusorep_API
+
+EXPOSE 8001

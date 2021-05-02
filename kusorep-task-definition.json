@@ -1,5 +1,5 @@
 {
-    "family": "kusorep-task-definition",
+    "family": "kusorep-task-definition2",
     "taskRoleArn": "arn:aws:iam::719378226820:role/ECSTaskRole",
     "executionRoleArn": "arn:aws:iam::719378226820:role/ECSTaskRole",
     "networkMode": "awsvpc",
@@ -15,28 +15,10 @@
                 }
             ],
             "essential": true,
-            "environment": [
+            "dependsOn": [
                 {
-                    "name": "APP_ENV",
-                    "value": "production"
-                },
-                {
-                    "name": "APP_DEBUG",
-                    "value": "true"
-                },
-                {
-                    "name": "LOG_CHANNEL",
-                    "value": "stderr"
-                }
-            ],
-            "secrets": [
-                {
-                    "name": "APP_KEY",
-                    "valueFrom": "arn:aws:ssm:us-east-2:719378226820:parameter/APP_KEY"
-                },
-                {
-                    "name": "APP_WORD",
-                    "valueFrom": "arn:aws:ssm:us-east-2:719378226820:parameter/APP_WORD"
+                    "containerName": "Django",
+                    "condition": "START"
                 }
             ],
             "privileged": false,
@@ -49,11 +31,34 @@
                     "awslogs-stream-prefix": "nginx"
                 }
             }
+        },
+        {
+            "name": "Django",
+            "image": "719378226820.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/django:latest",
+            "command": [
+                "/bin/sh -c \"uwsgi --socket :8001 --module Kusorep_API.wsgi\""
+            ],
+            "entryPoint": [
+                "sh",
+                "-c"
+            ],
+            "essential": false,
+            "privileged": false,
+            "readonlyRootFilesystem": false,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "ecs-hands-on",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-datetime-format": "%Y-%m-%d %H:%M:%S",
+                    "awslogs-stream-prefix": "laravel"
+                }
+            }
         }
     ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
     "cpu": "256",
-    "memory": "512"
+    "memory": "1024"
 }

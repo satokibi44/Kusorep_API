@@ -25,7 +25,7 @@ aws ecs run-task \
 --network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
 ```
 
-### サービスの作成
+### サービスの実行
 ```sh
 aws ecs create-service \
 --cluster kusorep-cluster \
