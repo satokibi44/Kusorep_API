@@ -96,6 +96,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.django-task-def.outputs.task-definition }}
-        service: kusorep-service
+        service: kusorep-api-alb
         cluster: kusorep-cluster
         wait-for-service-stability: true

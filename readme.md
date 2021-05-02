@@ -30,8 +30,20 @@ aws ecs run-task \
 aws ecs create-service \
 --cluster kusorep-cluster \
 --service-name kusorep-service \
---task-definition kusorep-task-definition \
+--task-definition kusorep-task-definition2 \
 --launch-type FARGATE \
 --desired-count 1 \
 --network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
+```
+
+### ALBありのサービスの実行
+```
+aws ecs create-service \
+--cluster kusorep-cluster \
+--service-name kusorep-api-alb \
+--task-definition kusorep-task-definition2 \
+--launch-type FARGATE \
+--load-balancers '[{"containerName":"nginx","containerPort":80,"targetGroupArn":"arn:aws:elasticloadbalancing:us-east-2:719378226820:targetgroup/ecs-hands-on2/4d10e7c3d6363c44"}]' \
+--desired-count 2 \
+--network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657,subnet-09ab656f904f932fa],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
 ```
