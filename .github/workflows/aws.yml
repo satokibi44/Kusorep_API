@@ -88,7 +88,7 @@ jobs:
       id: django-task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.kusorep-task-definition }}
+        task-definition: ${{ steps.nginx-task-def.outputs.kusorep-task-definition }}
         container-name: Django
         image: 719378226820.dkr.ecr.us-east-2.amazonaws.com/githubactions-nginx:latest
 
