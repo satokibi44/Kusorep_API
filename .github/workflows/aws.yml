@@ -82,15 +82,15 @@ jobs:
       with:
         task-definition: kusorep-task-definition.json
         container-name: nginx
-        image: 719378226820.dkr.ecr.us-east-2.amazonaws.com/githubactions-nginx:latest
+        image: ${{ steps.build-nginx-image.outputs.image }}
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: django-task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ steps.nginx-task-def.outputs.kusorep-task-definition }}
+        task-definition: ${{ steps.nginx-task-def.outputs.task-definition }}
         container-name: Django
-        image: 719378226820.dkr.ecr.us-east-2.amazonaws.com/githubactions-nginx:latest
+        image: ${{ steps.build-django-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
