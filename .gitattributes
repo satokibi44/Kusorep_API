@@ -1,3 +1,0 @@
-code/Kusorep_API/KusorepCalculater/Bert/Data/bert2.pickle filter=lfs diff=lfs merge=lfs -text
-code/Kusorep_API/KusorepCalculater/Bert/Data/best_epoche7 filter=lfs diff=lfs merge=lfs -text
-code/Kusorep_API/KusorepCalculater/Bert/Data/tokenizer/vocab.txt filter=lfs diff=lfs merge=lfs -text
