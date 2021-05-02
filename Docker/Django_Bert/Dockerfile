@@ -26,9 +26,16 @@ WORKDIR /
 COPY ./code/Kusorep_API ./Kusorep_API
 
 RUN mkdir /Kusorep_API/KusorepCalculater/Bert/Data
+RUN mkdir /Kusorep_API/KusorepCalculater/Bert/Data/tokenizer
 WORKDIR /Kusorep_API/KusorepCalculater/Bert/Data
-RUN wget -O data.tar "https://www.dropbox.com/sh/waj2hqp2zfox3o4/AACF9yMr-VHUYYrW6zP9PmCka"
-RUN tar -xvf /Kusorep_API/KusorepCalculater/Bert/Data/data.tar
+RUN apt-get install -y unzip
+RUN wget "https://www.dropbox.com/s/xu4998yxppfztfc/bert2.pickle"
+RUN wget "https://www.dropbox.com/s/dyji8b3gqh1x53m/best_epoche7"
+
+WORKDIR /Kusorep_API/KusorepCalculater/Bert/Data/tokenizer
+RUN wget "https://www.dropbox.com/s/0ghohdgzxcgq7z0/special_tokens_map.json"
+RUN wget "https://www.dropbox.com/s/feu5rx7musbvl0o/tokenizer_config.json"
+RUN wget "https://www.dropbox.com/s/f7i1rqygsnb6obm/vocab.txt"
 
 WORKDIR /Kusorep_API
 
