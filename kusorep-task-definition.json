@@ -5,7 +5,7 @@
     "networkMode": "awsvpc",
     "containerDefinitions": [
         {
-            "name": "nginxbug",
+            "name": "nginx",
             "image": "719378226820.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/nginx",
             "portMappings": [
                 {
