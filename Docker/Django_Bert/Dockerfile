@@ -25,8 +25,10 @@ RUN yes | pip install -r requirements.txt
 WORKDIR /
 COPY ./code/Kusorep_API ./Kusorep_API
 
-WORKDIR /Kusorep_API/KusorepCalculater/Bert
+RUN mkdir /Kusorep_API/KusorepCalculater/Bert/Data
+WORKDIR /Kusorep_API/KusorepCalculater/Bert/Data
 RUN wget -O data.zip "https://www.dropbox.com/sh/waj2hqp2zfox3o4/AACF9yMr-VHUYYrW6zP9PmCka"
+RUN unzip data.zip
 
 WORKDIR /Kusorep_API
 
