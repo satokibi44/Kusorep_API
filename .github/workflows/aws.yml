@@ -49,7 +49,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Nginx build, tag, and push image to Amazon ECR
-      id: build-image
+      id: build-nginx-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: kusorep-nginx
@@ -63,7 +63,7 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Django build, tag, and push image to Amazon ECR
-      id: build-image
+      id: build-django-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: kusorep-Django
