@@ -77,7 +77,7 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
+      id: nginx-task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: kusorep-task-definition.json
@@ -85,7 +85,7 @@ jobs:
         image: 719378226820.dkr.ecr.us-east-2.amazonaws.com/githubactions-nginx:latest
 
     - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
+      id: django-task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.kusorep-task-definition }}
