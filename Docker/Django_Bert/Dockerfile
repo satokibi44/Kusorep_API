@@ -3,7 +3,7 @@ FROM python:3.7.9
 # basic libs
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install -y wget unzip build-essential gcc zlib1g-dev git vim curl file sudo
+RUN apt-get install -y wget tar build-essential gcc zlib1g-dev git vim curl file sudo
 
 ENV PYTHONIOENCODING "utf-8"
 
@@ -27,8 +27,8 @@ COPY ./code/Kusorep_API ./Kusorep_API
 
 RUN mkdir /Kusorep_API/KusorepCalculater/Bert/Data
 WORKDIR /Kusorep_API/KusorepCalculater/Bert/Data
-RUN wget -O data.zip "https://www.dropbox.com/sh/waj2hqp2zfox3o4/AACF9yMr-VHUYYrW6zP9PmCka"
-RUN unzip /Kusorep_API/KusorepCalculater/Bert/Data/data.zip
+RUN wget -O data.tar "https://www.dropbox.com/sh/waj2hqp2zfox3o4/AACF9yMr-VHUYYrW6zP9PmCka"
+RUN tar -xvf /Kusorep_API/KusorepCalculater/Bert/Data/data.zip
 
 WORKDIR /Kusorep_API
 
