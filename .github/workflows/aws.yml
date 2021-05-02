@@ -52,7 +52,7 @@ jobs:
       id: build-nginx-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: kusorep-nginx
+        ECR_REPOSITORY: kusorep-api/django
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
