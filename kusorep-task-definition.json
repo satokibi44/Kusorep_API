@@ -21,7 +21,6 @@
                     "condition": "START"
                 }
             ],
-            "privileged": false,
             "readonlyRootFilesystem": false,
             "logConfiguration": {
                 "logDriver": "awslogs",
@@ -43,6 +42,16 @@
                 "-c"
             ],
             "essential": false,
+            "secrets": [
+                {
+                    "name": "APP_KEY",
+                    "valueFrom": "arn:aws:ssm:us-east-2:719378226820:parameter/APP_KEY"
+                },
+                {
+                    "name": "APP_WORD",
+                    "valueFrom": "arn:aws:ssm:us-east-2:719378226820:parameter/APP_WORD"
+                }
+            ],
             "privileged": false,
             "readonlyRootFilesystem": false,
             "logConfiguration": {

@@ -47,3 +47,12 @@ aws ecs create-service \
 --desired-count 2 \
 --network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657,subnet-09ab656f904f932fa],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
 ```
+
+aws ecs create-service \
+--cluster ecs-hands-on \
+--service-name ecs-hands-on-laravel \
+--task-definition ecs-hands-on-for-web \
+--launch-type FARGATE \
+--load-balancers '[{"containerName":"nginx","containerPort":80,"targetGroupArn":"arn:aws:elasticloadbalancing:us-east-2:719378226820:targetgroup/ecs-hands-on2/4d10e7c3d6363c44"}]' \
+--desired-count 2 \
+--network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657,subnet-09ab656f904f932fa],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
