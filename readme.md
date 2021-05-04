@@ -1,58 +1,32 @@
-# [WIP]シン・クソリプ度を測るやつ
+# シン・クソリプ度を測るやつ||
 ## 概要
-旧クソリプを測るやつの改訂版．
-旧クソリプを測るやつはバックエンドをlambdaで動かしていたが，lambdaはGPUが使えなかったり，負荷分散できなかったりするのでECSでAPIを再構築
+Twitterでくるリプライのクソリプ度を画像のように0~1で数値化するBot
+
+<img src="./img/example.png" width="280">
+
+Bert(深層学習)でリプライをベクトル化してクソリプかどうかを判別
+
+✳︎旧クソリプを測るやつの改訂版．
+旧クソリプを測るやつはバックエンドをlambdaで動かしていたが，lambdaはGPUが使えなかったり，負荷分散できなかったりするのでECSでAPIを再構築した．
+## 使い方
+エンドポイント：http://ecs-hands-on-1730037631.us-east-2.elb.amazonaws.com/KusorepCalculater/
+
+クソリプをmsgパラメータで指定して，GETリクエストを送る
+
+例えば
+```python:example.py
+url = "http://ecs-hands-on-1730037631.us-east-2.elb.amazonaws.com/KusorepCalculater/"
+param = {'msg': "死ねボケ！"}
+res = requests.get(url, params=param)
+```
+
+## 作った理由
+誹謗中傷などのクソリプが原因で自殺する人や心を病んでしまう人が社会問題となっている中で，そのような人たちを救いたいと思ったから．
+
+## 工夫した点
+クソリプを防ぐ様々なアプリが開発されれば，もっと社会はよくなると思ったので，クソリプ計算をAPI化した．
 
 ## 使用技術
 Bert(深層学習モデル)，PyTorch(深層学習ライブラリ)，Django(フレームワーク),AWS(ECS,EC2,ECR,load balancer)Docker,github actions
 ## インフラ構造
 <img src = "./img/infra.png">
-
-## memo
-
-### タスクの登録
-```
-aws ecs register-task-definition --cli-input-json file://kusorep-task-definition.json
-```
-
-### タスクの実行
-```
-aws ecs run-task \
---cluster kusorep-cluster \
---task-definition kusorep-task-definition \
---overrides '{"containerOverrides": [{"name":"Django-Bert","command": ["sh","-c","uwsgi --socket :8001 --module Kusorep_API.wsgi --py-autoreload 1 --logto /tmp/mylog.log"]}]}' \
---launch-type FARGATE \
---network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
-```
-
-### サービスの実行
-```sh
-aws ecs create-service \
---cluster kusorep-cluster \
---service-name kusorep-service \
---task-definition kusorep-task-definition2 \
---launch-type FARGATE \
---desired-count 1 \
---network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
-```
-
-### ALBありのサービスの実行
-```
-aws ecs create-service \
---cluster kusorep-cluster \
---service-name kusorep-api-alb \
---task-definition kusorep-task-definition2 \
---launch-type FARGATE \
---load-balancers '[{"containerName":"nginx","containerPort":80,"targetGroupArn":"arn:aws:elasticloadbalancing:us-east-2:719378226820:targetgroup/ecs-hands-on2/4d10e7c3d6363c44"}]' \
---desired-count 2 \
---network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657,subnet-09ab656f904f932fa],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
-```
-
-aws ecs create-service \
---cluster ecs-hands-on \
---service-name ecs-hands-on-laravel \
---task-definition ecs-hands-on-for-web \
---launch-type FARGATE \
---load-balancers '[{"containerName":"nginx","containerPort":80,"targetGroupArn":"arn:aws:elasticloadbalancing:us-east-2:719378226820:targetgroup/ecs-hands-on2/4d10e7c3d6363c44"}]' \
---desired-count 2 \
---network-configuration "awsvpcConfiguration={subnets=[subnet-08bbb751696bf5657,subnet-09ab656f904f932fa],securityGroups=[sg-0f2348e9f181c50dd],assignPublicIp=ENABLED}"
