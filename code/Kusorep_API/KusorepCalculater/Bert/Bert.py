@@ -19,7 +19,7 @@ class Bert(nn.Module):
     def __init__(self):
         super(Bert, self).__init__()
         #model = BertModel.from_pretrained('bert-base-japanese-whole-word-masking')
-        with open("KusorepCalculater/Bert/Data/bert2.pickle", "rb") as ff:
+        with open("KusorepCalculater/Bert/Data/bert5.pickle", "rb") as ff:
             model = pickle.load(ff)
         # BERTモジュール
         self.bert = model  # 日本語学習済みのBERTモデル
