@@ -30,7 +30,7 @@ RUN mkdir /Kusorep_API/KusorepCalculater/Bert/Data/tokenizer
 WORKDIR /Kusorep_API/KusorepCalculater/Bert/Data
 RUN apt-get install -y unzip
 RUN wget "https://www.dropbox.com/s/xu4998yxppfztfc/bert2.pickle"
-RUN wget "https://www.dropbox.com/s/dyji8b3gqh1x53m/best_epoche7"
+RUN wget "https://www.dropbox.com/s/2i2xr0va3ciwb8f/best_epoche5"
 
 WORKDIR /Kusorep_API/KusorepCalculater/Bert/Data/tokenizer
 RUN wget "https://www.dropbox.com/s/0ghohdgzxcgq7z0/special_tokens_map.json"
