@@ -31,7 +31,7 @@ class PredictTaskExecutor:
 
     def make_batch(self, sentences):
         TEXT = data.Field(sequential=True, tokenize=self.tokenizer_512, use_vocab=False, lower=False,include_lengths=True, batch_first=True, fix_length=MAX_SEQ_LEN, pad_token=0)
-        fields = [('text', TEXT)]
+        fields = [('Text', TEXT)]
         batch_size = 16
         
         examples = []
