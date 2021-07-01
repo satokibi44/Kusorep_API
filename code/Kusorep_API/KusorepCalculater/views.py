@@ -8,7 +8,7 @@ def kusorep_score_viewset(request):
         msg = request.GET["msg"]
         predictTaskExecutor = PredictTaskExecutor()
         label = predictTaskExecutor.main(msg)
-        kusoripu_score = label[1]
+        kusoripu_score = label
 
         return JsonResponse({
             'statusCode': 200,
