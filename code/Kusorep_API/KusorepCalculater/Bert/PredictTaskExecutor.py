@@ -24,7 +24,7 @@ class PredictTaskExecutor:
 
         return predict_list
 
-    def tokenizer_512(input_text):
+    def tokenizer_512(self, input_text):
         tokenizer = BertJapaneseTokenizer.from_pretrained(
             './KusorepCalculater/Bert/Data/tokenizer', mecab_kwargs={"mecab_option": "-d /root/local/lib/mecab/dic/mecab-ipadic-neologd"})
         return tokenizer.encode(input_text, max_length=MAX_SEQ_LEN, return_tensors='pt')[0]
