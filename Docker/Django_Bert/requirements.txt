@@ -3,5 +3,6 @@ mecab-python3==1.0.1
 djangorestframework
 sentencepiece==0.1.95
 transformers==2.9.0
+torchtext
 uwsgi
 tqdm
