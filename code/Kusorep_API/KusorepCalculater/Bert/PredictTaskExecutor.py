@@ -5,6 +5,7 @@ from transformers.tokenization_bert_japanese import BertJapaneseTokenizer
 from torchtext.legacy import data  # torchtextを使用
 import pickle
 from tqdm import tqdm
+import numpy as np
 
 MAX_SEQ_LEN = 256
 class PredictTaskExecutor:
@@ -14,17 +15,17 @@ class PredictTaskExecutor:
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)
 
-        predict_list  = []
+        predict_list  = np.array([])
         for batch in tqdm(sentence_batchs): 
             inputs = batch.Text[0].to(device)
             with torch.set_grad_enabled(False):
                 outputs = net(inputs)
                 pred2 = torch.softmax(outputs, 1)
-                score = pred2[0].tolist()
-                score = score[1]
-                predict_list.append(score)
+                pred2 = np.array(pred2.tolist())
+                score = pred2[:,1]
+                predict_list = np.concatenate([predict_list, score], 0)
 
-        return predict_list
+        return list(predict_list)
 
     def tokenizer_512(self, input_text):
         tokenizer = BertJapaneseTokenizer.from_pretrained(

@@ -6,3 +6,4 @@ transformers==2.9.0
 torchtext
 uwsgi
 tqdm
+numpy
