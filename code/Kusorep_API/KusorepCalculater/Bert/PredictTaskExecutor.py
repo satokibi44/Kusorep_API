@@ -20,7 +20,7 @@ class PredictTaskExecutor:
             with torch.set_grad_enabled(False):
                 outputs = net(inputs)
                 pred2 = torch.softmax(outputs, 1)
-                predict_list.append(pred2)
+                predict_list.append(pred2[0].tolist())
 
         return predict_list
 
