@@ -35,7 +35,7 @@
             "name": "Django",
             "image": "719378226820.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/django:latest",
             "command": [
-                "/bin/sh -c \"uwsgi --socket :8001 --module Kusorep_API.wsgi\""
+                "/bin/sh -c \"uwsgi --socket :8001 --module Kusorep_API.wsgi --buffer-size=65535\""
             ],
             "entryPoint": [
                 "sh",
