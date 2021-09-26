@@ -9,7 +9,7 @@ Bert(深層学習)でリプライをベクトル化してクソリプかどう�
 ✳︎旧クソリプを測るやつの改訂版．
 旧クソリプを測るやつはバックエンドをlambdaで動かしていたが，lambdaはGPUが使えなかったり，負荷分散できなかったりするのでECSでAPIを再構築した．
 ## 使い方
-エンドポイント：http://ecs-hands-on-1730037631.us-east-2.elb.amazonaws.com/KusorepCalculater/
+エンドポイント：http://ecs-hands-on-1730037631.us-east-2.elb.amazonaws.com/kusorep/score/
 
 クソリプをmsgパラメータで指定して，GETリクエストを送る
 
