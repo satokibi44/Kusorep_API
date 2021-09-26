@@ -1,6 +1,6 @@
 # シン・クソリプ度を測るやつ||
 ## 概要
-Twitterでくるリプライのクソリプ度を画像のように0~1で数値化するBot
+Twitterでくるリプライのクソリプ度を画像のように0~1で数値化するAPI
 
 <img src="./img/example.png" width="280">
 
@@ -16,7 +16,7 @@ Bert(深層学習)でリプライをベクトル化してクソリプかどう�
 例えば
 ```python:example.py
 url = "http://ecs-hands-on-1730037631.us-east-2.elb.amazonaws.com/KusorepCalculater/"
-param = {'msg': "死ねボケ！"}
+param = {'msg': "死ねボケ"}
 res = requests.get(url, params=param)
 ```
 
