@@ -15,7 +15,7 @@ Bert(深層学習)でリプライをベクトル化してクソリプかどう�
 
 例えば
 ```python:example.py
-url = "http://ecs-hands-on-1730037631.us-east-2.elb.amazonaws.com/KusorepCalculater/"
+url = "http://ecs-hands-on-1730037631.us-east-2.elb.amazonaws.com/kusorep/score/"
 param = {'msg': "死ねボケ"}
 res = requests.get(url, params=param)
 ```
