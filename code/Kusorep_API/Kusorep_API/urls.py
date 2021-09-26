@@ -19,5 +19,5 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^KusorepCalculater/', include('KusorepCalculater.urls')),
+    url(r'^kusorep/score/', include('KusorepCalculater.urls')),
 ]
