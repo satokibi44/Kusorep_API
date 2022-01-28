@@ -30,4 +30,4 @@ res = requests.get(url, params=param)
 ## 使用技術
 Bert(深層学習モデル)，PyTorch(深層学習ライブラリ)，Django(フレームワーク),AWS(ECS,EC2,ECR,load balancer)Docker,github actions
 ## インフラ構造
-<img src = "./img/infra.png">
+<img src = "./img/infra.png"> 
