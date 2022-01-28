@@ -1,12 +1,12 @@
 {
     "family": "kusorep-task-definition2",
-    "taskRoleArn": "arn:aws:iam::719378226820:role/ECSTaskRole",
-    "executionRoleArn": "arn:aws:iam::719378226820:role/ECSTaskRole",
+    "taskRoleArn": "arn:aws:iam::031757399598:role/ECSTaskRole",
+    "executionRoleArn": "arn:aws:iam::031757399598:role/ECSTaskRole",
     "networkMode": "awsvpc",
     "containerDefinitions": [
         {
             "name": "nginx",
-            "image": "719378226820.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/nginx",
+            "image": "031757399598.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/nginx",
             "portMappings": [
                 {
                     "containerPort": 80,
@@ -33,7 +33,7 @@
         },
         {
             "name": "Django",
-            "image": "719378226820.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/django:latest",
+            "image": "031757399598.dkr.ecr.us-east-2.amazonaws.com/kusorep-api/django:latest",
             "command": [
                 "/bin/sh -c \"uwsgi --socket :8001 --module Kusorep_API.wsgi --buffer-size=65535\""
             ],
@@ -45,11 +45,11 @@
             "secrets": [
                 {
                     "name": "APP_KEY",
-                    "valueFrom": "arn:aws:ssm:us-east-2:719378226820:parameter/APP_KEY"
+                    "valueFrom": "arn:aws:ssm:us-east-2:031757399598:parameter/APP_KEY"
                 },
                 {
                     "name": "APP_WORD",
-                    "valueFrom": "arn:aws:ssm:us-east-2:719378226820:parameter/APP_WORD"
+                    "valueFrom": "arn:aws:ssm:us-east-2:031757399598:parameter/APP_WORD"
                 }
             ],
             "privileged": false,
